@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import R from 'ramda'
 import { resolve } from 'path'
-const MIDDLEWARES = ['database']
+const MIDDLEWARES = ['database','router']
 const r = path => resolve(__dirname, path)
 const serverConfig={
   port:3009,
