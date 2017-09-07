@@ -21,8 +21,6 @@ class Server{
   }
    start(){
     this.app.use(ctx => {
-      ctx.status = 200 // koa defaults to 404 when it sees that status is unset
-      ctx.body='hello word';
     })
     this.app.listen(serverConfig.port,serverConfig.host);
     console.log('Server listening on' + serverConfig.host + ':' + serverConfig.port)

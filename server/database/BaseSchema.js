@@ -13,9 +13,10 @@ class BaseSchema{
         }
     }
      this.structure=Object.assign({},this.meta,structure);
+    console.log(name);
     this[name+'Schema']=new Schema(this.structure);
     this.init(this[name+'Schema']);
-    this.statics(this[name+'Schema'])
+    this.statics(this[name+'Schema']);
   }
   init(schema,realization){
     this.pre(schema,realization);
@@ -24,11 +25,11 @@ class BaseSchema{
   pre(schema,realization){
     schema.pre('save',function (next) {
 
-      if(realization.position||!realization){//如果没有position要覆盖父级方法
+      if(!realization||realization.position){//如果没有position要覆盖父级方法
         if(this.isNew){//如果是现在更新创建和更新
-          this.meta.createdAt= this.meta.updatedAt=Date.now();
+          this.createdAt= this.updatedAt=Date.now();
         }else{//只更新更新时间
-          this.meta.updatedAt=Date.now()
+          this.updatedAt=Date.now()
         }
       }else{
         realization.apply(this);
@@ -37,9 +38,12 @@ class BaseSchema{
     });
   }
   statics(schema){
+
+
   }
-  entity(schema){
-    const [name]=mongoose.model(name,schema);
+  entity(name,schema){
+    mongoose.model(name,schema);
   }
 }
+
 export default BaseSchema
